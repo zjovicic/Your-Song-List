@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block main %}
+
+<h1>Editing profile</h1>
+
+{% for row in rows %}
+<form action="/editprofile" method="post">
+    <div>
+        <label for="country">Country: </label>
+        <input autocomplete="off" id="country" name="country" placeholder="{{ row["country"] }}" type="text">
+    </div>
+    <div>
+        <label for="website">Website: </label>
+        <input autocomplete="off" id="website" name="website" placeholder="{{ row["website"] }}" type="text">
+    </div>
+    <div class="first-textarea-container">
+        <label for="aboutme">About me: </label><br>
+        <textarea autocomplete="off" id="aboutme" name="aboutme" rows="5" cols="35">{{ row["about_me"] }}</textarea>
+    </div>
+    <div>
+        <label for="favoritemusic">Favorite music: </label><br>
+        <textarea autocomplete="off" id="favoritemusic" name="favoritemusic" rows="5" cols="35">{{ row["favorite_music"] }}</textarea>
+    </div>
+    <button type="submit">Save Changes</button>
+</form>
+{% endfor %}
+
+{% endblock %}
