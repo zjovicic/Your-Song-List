@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+- {{ name }}
+{% endblock %}
+
+
+{% block main %}
+
+<div class="song-profile-container">
+<h1>{{ name }}</h1>
+
+
+<table class="uncentered bigtable">
+    {% for row in rows %}
+    <tr>
+        <th>ID</td>
+        <td>{{ row["id"] }}</td>
+    </tr>
+    <tr>
+        <th>Title</td>
+        <td>{{ row["name"] }}</td>
+    </tr>
+    <tr>
+        <th>Country</td>
+        <td>{{ row["country"] }}</td>
+    </tr>
+    <tr>
+        <th>Artist</td>
+        <td>{{ row["artist"] }}</td>
+    </tr>
+    <tr>
+        <th>Language</td>
+        <td>{{ row["language"] }}</td>
+    </tr>
+    <tr>
+        <th>Year</td>
+        <td>{{ row["year"] }}</td>
+    </tr>
+    <tr>
+        <th>Votes</td>
+        <td>{{ row["votes"] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="voting">
+    {% for row in rows %}
+        <form class="voting-form" action="/vote" method="post">
+            <input type="hidden" name="vote" value="1">
+            <input type="hidden" name="song_id" value="{{row["id"]}}">
+            <input type="hidden" name="score" value="{{row["votes"]}}">
+            <button class="voting-button upvote" type="submit"><span>Upvote</span></button>
+        </form>
+        <a href="/editsong?id={{id}}"><button>Edit song / Correct mistakes</button></a>
+        <form class="voting-form" action="/vote" method="post">
+            <input type="hidden" name="vote" value="-1">
+            <input type="hidden" name="song_id" value="{{row["id"]}}">
+            <input type="hidden" name="score" value="{{row["votes"]}}">
+            <button class="voting-button downvote" type="submit"><span>Downvote</span></button>
+        </form>
+    {% endfor %}
+</div>
+
+{% if isadmin == 1 %}
+<div class="voting">
+    {% for row in rows %}
+        <form class="voting-form" action="/lock" method="post">
+            <input type="hidden" name="song_id" value="{{row["id"]}}">
+            <button type="submit">Lock editing</button>
+        </form>
+        <form class="voting-form" action="/unlock" method="post">
+            <input type="hidden" name="song_id" value="{{row["id"]}}">
+            <button type="submit">Unlock editing</button>
+        </form>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% for row in rows %}
+<a href="https://www.youtube.com/results?search_query={{row["artist"]}}+{{row["name"]}}" target="_blank"><button>Search on YouTube</button></a>
+{% endfor %}
+
+
+<form action="/comment" method="post">
+    <input type="hidden" name="song_id" value="{{id}}">
+    <textarea placeholder="Add a comment..." autocomplete="off" id="comment" name="comment" rows="5" cols="35"></textarea><br>
+    <button type="submit">Add comment</button>
+</form>
+
+<h2>Comments: </h2>
+
+{% for row in comments %}
+<div class="comment">
+    <p class="comment-title">On {{row["time"]}} <a href="/profile?u={{row["username"]}}">{{row["username"]}}</a> wrote: </p>
+    <p class="comment-text">{{row["comment"]}} </p>
+    {%if (isadmin == 1) or (user_id == row["commenterid"]) %}
+    <form class="delete-button-container" action="/deletesongcomment" method="post">
+        <input type="hidden" name="comment_id" value="{{row["commentid"]}}">
+        <button class="deletebutton" type="submit"><span>Delete comment</span></button>
+    </form>
+    {% endif %}
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}
