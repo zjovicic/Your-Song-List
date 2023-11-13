@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Users
+{% endblock %}
+
+{% block main %}
+
+<h1 style="text-align:center">Users</h1>
+
+<div class="table-container">
+<form action="/users" method="post">
+    <div>
+       <select name="method">
+            <option value="id">id</option>
+            <option value="username">username</option>
+            <option value="country">country</option>
+            <option value="website">website</option>
+            <option class="collapsable" value="upvotes">upvotes</option>
+            <option class="collapsable" value="downvotes">downvotes</option>
+            <option class="collapsable" value="nominations">nominations</option>
+            <option class="collapsable" value="comments">comments</option>
+            <option class="collapsable" value="profilecomments">profile comments</option>
+        </select>
+    </div>
+    <button type="submit">Sort</button>
+</form>
+<table class="uncentered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Country</th>
+            <th class="collapsable">Nominations</th>
+            <th class="collapsable">Upvotes</th>
+            <th class="collapsable">Downvotes</th>
+            <th class="collapsable">Comments</th>
+            <th class="collapsable">Profile comments</th>
+            <th>Website</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row["id"] }}</td>
+            <td><a href="/profile?u={{row["username"]}}">{{row["username"]}}</a></td>
+            <td>{{ row["country"] }}</td>
+            <td class="collapsable">{{ row["nominations"] }}</td>
+            <td class="collapsable">{{ row["upvotes"] }}</td>
+            <td class="collapsable">{{ row["downvotes"] }}</td>
+            <td class="collapsable">{{ row["comments"] }}</td>
+            <td class="collapsable">{{ row["profilecomments"] }}</td>
+            <td>{% if row["website"] %}<a href="{{ row["website"] }}">{{ row["website"] }}{% endif %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+
+{% endblock %}
