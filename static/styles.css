@@ -1,0 +1,358 @@
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Gill Sans", sans-serif;
+}
+/* Styling links sitewide */
+a{
+    text-decoration: none;
+    font-style: italic;
+}
+a:link{
+ color: blue;
+}
+a:visited{
+color: darkblue;
+}
+a:active{
+    color: darkred;
+}
+
+/* Styling elements outside classes */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(225,225,225);
+}
+
+h1 {
+    margin: 20px 5px;
+}
+
+aside {
+    padding: 20px;
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    justify-content: top;
+    background-color: rgb(225,255,255);
+}
+
+aside img{
+    width: 100%;
+}
+
+main {
+    grid-column: 1;
+    padding: 20px;
+    background-color: white;
+}
+
+footer {
+    grid-column: 1 / -1;
+    background-color: rgb(0,225,225);
+    text-align: center;
+    height: 30px;
+    padding: 7px;
+}
+
+ul {
+    margin-left:20px;
+    margin-top:20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+table
+{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+    border-spacing: 1px;
+    /*width: 100%; */
+}
+
+td, th {
+    padding: 10px;
+    background-color: white;
+    overflow: visible;
+    overflow-wrap: break-word;
+    max-width: 200px;
+}
+
+input, textarea {
+    padding: 5px;
+    margin: 5px;
+}
+
+button {
+    padding: 5px;
+    margin: 5px;
+}
+
+p{
+    padding: 5px;
+}
+
+button span {
+    display: none;
+  }
+
+/* Styling classes */
+
+.main-container {
+    width: 80%;
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 4fr 1fr;
+    background-color: white;
+}
+
+.intro {
+    margin-left: 20px;
+}
+
+.flashing-message {
+    grid-column: 1 / -1;
+    padding: 2px;
+    background-color: yellow;
+    font-weight: bold;
+    text-align: center;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.logo {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+}
+
+.logo a {
+    margin-left: 20px;
+}
+
+.logo-span {
+    font-size: 100px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: auto;
+}
+
+
+.logo-span:link {
+    color:black;
+}
+
+.logo-span:visited {
+    color:black;
+}
+
+.logo-span:active {
+    color:black;
+}
+
+.main-navigation {
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    background-color: rgb(0,225,225);
+    grid-column: 1 / -1;
+}
+
+.first-item {
+    margin-left: 70px;
+}
+
+.second-item {
+    margin-left: 10px;
+}
+
+.uncentered{
+    margin: 5px;
+}
+
+.index-input
+{
+    width: 80px;
+    margin: 5px;
+}
+
+.first-textarea-container {
+    margin-top:10px;
+}
+
+.voting {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.voting-form {
+    display: inline;
+}
+
+.voting-button {
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 38px;
+    width: 40px;
+    border: none;
+}
+
+.voting-button:hover {
+    cursor: pointer;
+}
+
+.upvote {
+    background-image: url("/static/pictures/upvote.png");
+}
+
+.downvote{
+    background-image: url("/static/pictures/downvote.png");
+}
+
+.song-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-left: 20px;
+}
+
+.table-container {
+    display: flex;
+    margin-left: 20px;
+    margin-right: auto;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.comment {
+    background-color: rgb(220,255,255);
+    border-radius: 15px;
+    border: 1px solid rgb(0, 200,200);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+}
+
+.comment-title{
+    font-size: 14px;
+}
+
+.comment-text {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.delete-button-container {
+    align-self: flex-end;
+    padding-right: 5px;
+}
+
+.deletebutton {
+    background-image: url("/static/pictures/delete.png");
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    height: 24px;
+    width: 85px;
+    border: none;
+}
+
+.deletebutton:hover {
+    cursor: pointer;
+}
+
+/* Responsive design for use on cell phones */
+@media screen and (max-width: 1049px) {
+
+    aside {
+        grid-column: 1 / -1;
+    }
+
+    aside img {
+        width: 200px;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    td, th {
+        padding: 2px;
+        background-color: white;
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+
+    table {
+        margin-right: 0;
+    }
+
+    footer {
+        height: 70px;
+    }
+
+    .main-container{
+        width: 100%;
+    }
+
+    .logo-span {
+    font-size: 56px;
+    }
+
+    .main-navigation {
+        flex-direction: column;
+        height: 100%;
+        gap: 10px;
+    }
+
+    .first-item {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+
+    .second-item {
+        margin-left: 0;
+    }
+
+    .bigtable td, .bigtable th {
+        padding: 4px;
+        background-color: white;
+        font-size: 15px;
+    }
+
+    .song-profile-container {
+        margin-left: 0;
+    }
+
+    .collapsable {
+        display: none;
+    }
+}
