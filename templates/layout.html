@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- https://favicon.io/emoji-favicons/money-bag/ -->
+        <link href="/static/favicon.png" rel="icon">
+
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <title>Your Song List{% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div class="logo">
+                <a href="/">
+                    <img class="logo-img" src="static/pictures/littlelogo.png" alt="Logo for the website">
+                </a>
+                <a href="/" class="logo-span">
+                    <span>Your Song List</span>
+                </a>
+            </div>
+        <nav class="main-navigation">
+            {% if session["user_id"] %}
+                    <span class="first-item">Hello, {{session["username"]}}!</span>
+                    <a class="nav-link first-item" href="/myprofile">My Profile</a>
+                    <a class="nav-link second-item" href="/editprofile">Edit profile</a>
+                    <a class="nav-link second-item" href="/logout">Log Out</a>
+                    <a class="nav-link first-item" href="/">Home</a>
+                    <a class="nav-link" href="/nominate">Nominate a Song</a>
+                    <a class="nav-link" href="/searching">Search songs</a>
+                    <a class="nav-link" href="/countries">Countries</a>
+                    <a class="nav-link" href="/users">Users</a>
+            {% else %}
+                    <a class="nav-link first-item" href="/register">Register</a>
+                    <a class="nav-link" href="/login">Log In</a>
+                    <a class="nav-link first-item" href="/">Home</a>
+                    <a class="nav-link" href="/nominate">Nominate a Song</a>
+                    <a class="nav-link" href="/searching">Search songs</a>
+                    <a class="nav-link" href="/countries">Countries</a>
+                    <a class="nav-link" href="/users">Users</a>
+            {% endif %}
+          </nav>
+
+         {% if get_flashed_messages() %}
+            <header class="flashing-message">
+                <div role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+
+        <aside>
+            Some other sites with music lists:
+            <a href="https://digitaldreamdoor.com/">
+                <img src="/static/pictures/ddd.png" alt="Digital Dream Door logo">
+            </a>
+            <a href="https://www.rollingstone.com/">
+                <img src="/static/pictures/rollingstone.png" alt="Rolling Stone logo">
+            </a>
+            <a href="http://www.acclaimedmusic.net/">
+                <img src="/static/pictures/acclaimed.png" alt="Acclaimed Music logo">
+            </a>
+        </aside>
+
+        <footer>
+            Made by <a href="https://zjovicic.github.io/">Zlatko Jovičić</a>, as the final project for <a href="https://www.edx.org/course/introduction-computer-science-harvardx-cs50x">CS50x Course by HarvardX / edX</a>, in August 2023. <a href="/changes">View change log.</a>
+        </footer>
+
+        </div>
+
+    </body>
+
+</html>
