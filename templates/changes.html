@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+- Change log
+{% endblock %}
+
+{% block main %}
+
+<h1>Change log</h1>
+
+<div class="table-container">
+
+<table class="uncentered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Change Type</th>
+            <th>Done by</th>
+            <th class="collapsable">Affected user</th>
+            <th class="collapsable">Affected song</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{ row["changeid"] }}</td>
+            <td>{{ row["change_type"] }}</td>
+            <td><a href="/profile?u={{row["username"]}}">{{row["username"]}}</a></td>
+            <td class="collapsable"><a href="/profile?u={{row["affecting_username"]}}">{{row["affecting_username"]}}</a></td>
+            <td class="collapsable"><a href="/song?id={{row["affecting_song"]}}">{{row["affecting_songname"]}}</a></td>
+            <td>{{row["time"]}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+
+
+{% endblock %}
