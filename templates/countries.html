@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+- Countries
+{% endblock %}
+
+
+{% block main %}
+
+<h1 >Countries</h1>
+
+<div class="table-container">
+
+    <form action="/countries" method="post">
+        <div>
+           <select name="method">
+                <option value="country">Country</option>
+                <option value="songs">Songs</option>
+                <option value="votes">Votes</option>
+            </select>
+        </div>
+        <button type="submit">Sort</button>
+    </form>
+
+<table class="uncentered">
+    <thead>
+        <tr>
+            <th>Country</th>
+            <th>Songs</th>
+            <th>Votes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td><a href="/country?c={{row["country"]}}">{{row["country"]}}</a></td>
+            <td>{{ row["COUNT(*)"] }}</td>
+            <td>{{ row["SUM(votes)"] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</div>
+{% endblock %}
