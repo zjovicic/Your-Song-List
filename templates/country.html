@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+- {{ country }}
+{% endblock %}
+
+{% block main %}
+
+<h1>{{ country }}</h1>
+
+<div class="table-container">
+<form action="country?c={{country}}" method="post">
+    <div>
+       <select name="method">
+            <option value="id">id</option>
+            <option value="name">song name</option>
+            <option value="artist">artist</option>
+            <option class="collapsable" value="language">language</option>
+            <option value="votes">votes</option>
+            <option value="year">year</option>
+        </select>
+    </div>
+    <button type="submit">Sort</button>
+</form>
+
+<table class="uncentered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Song</th>
+            <th>Artist</th>
+            <th class="collapsable">Language</th>
+            <th>Votes</th>
+            <th>Year</th>
+            <th class="collapsable">Upvote</th>
+            <th class="collapsable">Downvote</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            <td>{{row["id"] }}</td>
+            <td><a href="/song?id={{ row["id"] }}"</a>{{ row["name"] }}</td>
+            <td>{{ row["artist"] }}</td>
+            <td class="collapsable">{{ row["language"] }}</td>
+            <td>{{ row["votes"] }}</td>
+            <td>{{ row["year"] }}</td>
+            <td class="collapsable">
+                <form action="/vote" method="post">
+                    <input type="hidden" name="vote" value="1">
+                    <input type="hidden" name="song_id" value="{{row["id"]}}">
+                    <input type="hidden" name="score" value="{{row["votes"]}}">
+                    <button class="voting-button upvote" type="submit"><span>Upvote</span></button>
+                </form>
+            </td>
+            <td class="collapsable">
+                <form action="/vote" method="post">
+                    <input type="hidden" name="vote" value="-1">
+                    <input type="hidden" name="song_id" value="{{row["id"]}}">
+                    <input type="hidden" name="score" value="{{row["votes"]}}">
+                    <button class="voting-button downvote" type="submit"><span>Downvote</span></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+{% endblock %}
