@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block main %}
+<p class="intro" style="margin-top:20px">
+    This website is a community project with the aim to select the best songs
+    from each country in the world. And eventually to make a master list of the best songs from all
+    around the world.
+  </p>
+  <p class="intro">
+    Given that most people are only exposed to music in English and to
+    music from their native countries, many of the great songs, that are very
+    famous in their countries, remain pretty much unknown in the world, simply
+    because they are not in English.
+  </p>
+  <p class="intro">
+    With this project we'll try to correct it and to give the best songs from all
+    around the world the international presence that they deserve.
+  </p>
+  <p class="intro">
+    But to identify the best songs, we need your help! You can nominate songs from
+    various countries and you can vote for the songs that are already
+    nominated. In due time, I hope we'll have in our list at least 10 songs from each
+    country in the world, and rank them against each other...
+  </p>
+  <p class="intro" style="margin-bottom:30px">
+    All that based on YOUR nominations and votes!
+  </p>
+
+  <div class="table-container">
+  <form class="intro" action="/" method="post">
+    <div>
+       <select name="method">
+            <option value="id">id</option>
+            <option value="name">song name</option>
+            <option value="artist">artist</option>
+            <option value="country">country</option>
+            <option class="collapsable" value="language">language</option>
+            <option value="votes">votes</option>
+            <option value="year">year</option>
+        </select>
+    </div>
+    <button type="submit">Sort</button>
+</form>
+    <table class="uncentered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Song</th>
+                <th>Artist</th>
+                <th>Country</th>
+                <th class="collapsable">Language</th>
+                <th>Votes</th>
+                <th>Year</th>
+                <th class="collapsable">Upvote</th>
+                <th class="collapsable">Downvote</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+			<tr>
+                <td>{{row["id"] }}</td>
+				<td><a href="/song?id={{ row["id"] }}"</a>{{ row["name"] }}</td>
+                <td>{{ row["artist"] }}</td>
+                <td>{{ row["country"] }}</td>
+                <td class="collapsable">{{ row["language"] }}</td>
+                <td>{{ row["votes"] }}</td>
+                <td>{{ row["year"] }}</td>
+                <td class="collapsable">
+                    <form action="/vote" method="post">
+                        <input type="hidden" name="vote" value="1">
+                        <input type="hidden" name="song_id" value="{{row["id"]}}">
+                        <input type="hidden" name="score" value="{{row["votes"]}}">
+                        <button class="voting-button upvote" type="submit"><span>Upvote</span></button>
+                    </form>
+                </td>
+                <td class="collapsable">
+                    <form action="/vote" method="post">
+                        <input type="hidden" name="vote" value="-1">
+                        <input type="hidden" name="song_id" value="{{row["id"]}}">
+                        <input type="hidden" name="score" value="{{row["votes"]}}">
+                        <button class="voting-button downvote" type="submit"><span>Downvote</span></button>
+                    </form>
+                </td>
+			</tr>
+		    {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
