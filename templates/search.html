@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block main %}
+<div class="table-container">
+    <h1>Search</h1>
+
+
+    <label for="query">Search by song name:</label>
+    <input id="song-search" autocomplete="off" autofocus placeholder="Query" type="search">
+    <br>
+    <label for="query">Search by artist:</label>
+    <input id="artist-search" autocomplete="off" placeholder="Query" type="search">
+
+    <ul></ul>
+
+</div>
+    <script>
+
+        let songinput = document.querySelector('#song-search');
+        songinput.addEventListener('input', async function() {
+            let response = await fetch('/search?song=' + songinput.value);
+            let songs = await response.text();
+            document.querySelector('ul').innerHTML = songs;
+        });
+
+        let artistinput = document.querySelector('#artist-search');
+        artistinput.addEventListener('input', async function() {
+            let response = await fetch('/search?artist=' + artistinput.value);
+            let songs = await response.text();
+            document.querySelector('ul').innerHTML = songs;
+        });
+
+    </script>
+
+
+{% endblock %}
