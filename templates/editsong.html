@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Edit song
+{% endblock %}
+
+{% block main %}
+
+<h1>Editing song</h1>
+
+{% for row in rows %}
+<form action="/edit" method="post">
+    <div>
+        <input id="id" name="id" value="{{ row["id"] }}" type="hidden">
+    </div>
+    <div>
+        <label for="name">Title: </label>
+        <input autocomplete="off" autofocus  id="name" name="name" placeholder="{{ row["name"] }}" type="text">
+    </div>
+    <div>
+        <label for="country">Country: </label>
+        <input autocomplete="off" id="country" name="country" placeholder="{{ row["country"] }}" type="text">
+    </div>
+    <div>
+        <label for="artist">Artist: </label>
+        <input autocomplete="off" id="artist" name="artist" placeholder="{{ row["artist"] }}" type="text">
+    </div>
+    <div>
+        <label for="language">Language: </label>
+        <input autocomplete="off" id="language" name="language" placeholder="{{ row["language"] }}" type="text">
+    </div>
+    <div>
+        <label for="year">Year: </label>
+        <input autocomplete="off" id="year" name="year" placeholder="{{ row["year"] }}" type="number">
+    </div>
+    <button type="submit">Save Changes</button>
+</form>
+{% endfor %}
+
+{% endblock %}
