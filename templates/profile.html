@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block title %}
+- {{ user }}
+{% endblock %}
+
+{% block main %}
+
+<div class="song-profile-container">
+
+<h1>{{ user }}</h1>
+
+<table class="uncentered bigtable">
+    {% for row in rows %}
+    <tr>
+        <th>Username</td>
+        <td>{{ row["username"] }}</td>
+    </tr>
+    <tr>
+        <th>Country</td>
+        <td>{{ row["country"] }}</td>
+    </tr>
+    <tr>
+        <th>Website</td>
+        <td>{% if row["website"] %}<a href="{{ row["website"] }}">{{ row["website"] }}{% endif %}</td>
+    </tr>
+    <tr>
+        <th>Upvotes</td>
+        <td>{{ row["upvotes"] }}</td>
+    </tr>
+    <tr>
+        <th>Downvotes</td>
+        <td>{{ row["downvotes"] }}</td>
+    </tr>
+    <tr>
+        <th>Comments</td>
+        <td>{{ row["comments"] }}</td>
+    </tr>
+    <tr>
+        <th>Profile comments</td>
+        <td>{{ row["profilecomments"] }}</td>
+    </tr>
+    <tr>
+        <th>Nominations</td>
+        <td>{{ row["nominations"] }}</td>
+    </tr>
+    <tr>
+        <th>About me</td>
+        <td>{{ row["about_me"] }}</td>
+    </tr>
+    <tr>
+        <th>Favorite music</td>
+        <td>{{ row["favorite_music"] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form action="/profilecomment" method="post">
+    <input type="hidden" name="user_id" value="{{id}}">
+    <textarea placeholder="Add a comment..." autocomplete="off" id="comment" name="comment" rows="5" cols="35"></textarea><br>
+    <button type="submit">Add comment</button>
+</form>
+
+<h2>The Wall:</h2>
+
+{% for row in comments %}
+<div class="comment">
+    <p class="comment-title">On {{row["time"]}} <a href="/profile?u={{row["username"]}}">{{row["username"]}}</a> wrote:</p>
+    <p class="comment-text">{{row["comment"]}} </p>
+    {%if (isadmin == 1) or (user_id == row["commenterid"]) %}
+    <form class="delete-button-container" action="/deleteprofilecomment" method="post">
+        <input type="hidden" name="comment_id" value="{{row["commentid"]}}">
+        <button class="deletebutton" type="submit"><span>Delete comment</span></button>
+    </form>
+    {% endif %}
+</div>
+
+{% endfor %}
+
+
+
+</div>
+
+{% endblock %}
